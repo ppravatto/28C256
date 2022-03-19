@@ -16,7 +16,7 @@ The 8 I/O EEPROM pins are directly driven by the Arduino digital pins in the ran
 
 The electronic schematic, available as a `.pdf` file in the `hardware` folder, is the following:
 
-
+![alt text](https://github.com/ppravatto/28C256/blob/main/hardware/Schematic.png)
 
 The Gerber files for the PCB, designed using the EasyEDA software, are also available in the `hardware` folder.
 
