@@ -96,17 +96,26 @@ class EEPROM_programmer():
         print("")
         print("\u001b[32mSUCCESS\u001b[0m")
 
-    def memory_dump(self):
+    def memory_dump(self):          
+        dump = []
         for chunk in range(int(0x8000/0x10)):
             address = 0x10*chunk
             data = self.read_chunk(address, 0x10)
             dumpline = " ".join([str(hex(val)) for val in data])
             print("{} | {}".format(hex(address), dumpline)) 
+            for val in data:
+                dump.append(int(val))
+        return bytearray(dump)
+        
     
 
 if __name__ == "__main__":
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+    port = input("Please select serial port (default: /dev/ttyUSB0): ")
+    port = "/dev/ttyUSB0" if port=="" else port
     
-    programmer = EEPROM_programmer()
+    programmer = EEPROM_programmer(port=port)
     programmer.open()
 
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -134,7 +143,11 @@ if __name__ == "__main__":
         os.system('cls' if os.name == 'nt' else 'clear')
 
         if mode == "" or mode == 1:
-            programmer.memory_dump()
+            dump = programmer.memory_dump()
+            filename = input("\nSelect a name for the output binary file (default: not save): ")
+            if filename != "":
+                with open(filename, 'wb') as dumpfile:
+                    dumpfile.write(dump)
 
         elif mode == 2:
             print("Reading from single address")
