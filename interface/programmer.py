@@ -186,7 +186,7 @@ if __name__ == "__main__":
 
                 chunks = []
                 for i in range(complete_chunks):
-                    chunk = data[i*MAX_CHUNK_SIZE, (i+1)*MAX_CHUNK_SIZE]
+                    chunk = data[i*MAX_CHUNK_SIZE : (i+1)*MAX_CHUNK_SIZE]
                     chunks.append(chunk)
                 if reminder != 0:
                     chunks.append(data[-reminder::])
